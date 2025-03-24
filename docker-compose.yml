@@ -13,8 +13,21 @@ services:
     ports:
         - 5432:5432
     volumes:
-        - pgdata:/var/lib/postgresql/data  
-volumes:
-    pgdata:
+        - /var/lib/postgresql/data  
+  searchservice:
+    image: ${DOCKER_REGISTRY-}searchservice
+    build:
+      context: .
+      dockerfile: SearchService/Dockerfile
+  mongodb:
+    image: mongo
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=sujan6861
+    ports:
+        - 27017:27017
+    volumes:
+        - /data/db
+
 
 
